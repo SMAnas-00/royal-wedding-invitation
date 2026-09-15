@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shadi Ki Dawat | Login</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Nastaliq+Urdu&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="login-body">
+  
+  <div class="login-card">
+    <h1 class="urdu-title">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</h1>
+    <h2 class="gold-text">The Royal Wedding</h2>
+    <p>Apna Special Invitation Passcode Enter Karein:</p>
+    
+    <form id="loginForm">
+      <input type="text" id="passcode" placeholder="e.g. KHAN2026" required autofocus>
+      <button type="submit" class="btn-gold">Open Invitation</button>
+    </form>
+    <p id="errorMsg" class="error-msg"></p>
+  </div>
+
+  <script type="module">
+    import { db, doc, getDoc } from './js/firebase-config.js';
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const code = document.getElementById('passcode').value.trim().toUpperCase();
+      const errorMsg = document.getElementById('errorMsg');
+      errorMsg.innerText = "Checking passcode...";
+
+      try {
+        const docRef = doc(db, "guests", code);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          // Store guest data in SessionStorage
+          sessionStorage.setItem('guestData', JSON.stringify({
+            id: code,
+            ...docSnap.data()
+          }));
+          window.location.href = "dashboard.html";
+        } else {
+          errorMsg.innerText = "Ghalat Code! Baraye meherbani sahi Passcode darj karein.";
+        }
+      } catch (err) {
+        console.error(err);
+        errorMsg.innerText = "Connection error. Dobara koshish karein.";
+      }
+    });
+  </script>
+</body>
+</html>

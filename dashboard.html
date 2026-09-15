@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Three.js Canvas Container -->
+  <div id="webgl-bg"></div>
+
+  <main class="content-wrapper">
+    <header class="header">
+      <p class="sub-title">Khushamdeed!</p>
+      <h1 id="guestName" class="guest-name">Guest Name</h1>
+      <p>We cordially invite you to join us in celebrating the wedding of</p>
+      <h2 class="couple-names">Groom & Bride</h2>
+    </header>
+
+    <!-- Events Container -->
+    <section class="events-grid">
+      
+      <!-- Mayun Card -->
+      <div class="event-card mayun-theme" id="mayunCard">
+        <div class="card-badge">Mayun / Dholki</div>
+        <div class="event-icon">🌼</div>
+        <h3>Mayun Ceremony</h3>
+        <p class="date">Thursday, 15th Oct 2026</p>
+        <p class="venue">Venue: Royal Palm Marquee</p>
+        <div class="invite-persons" id="mayunPersons">
+          Invited Persons: <span>0</span>
+        </div>
+      </div>
+
+      <!-- Barat Card -->
+      <div class="event-card barat-theme" id="baratCard">
+        <div class="card-badge">Barat</div>
+        <div class="event-icon">🎺</div>
+        <h3>Baraat & Ruksati</h3>
+        <p class="date">Friday, 16th Oct 2026</p>
+        <p class="venue">Venue: Imperial Wedding Hall</p>
+        <div class="invite-persons" id="baratPersons">
+          Invited Persons: <span>0</span>
+        </div>
+      </div>
+
+      <!-- Walima Card -->
+      <div class="event-card walima-theme" id="walimaCard">
+        <div class="card-badge">Walima</div>
+        <div class="event-icon">✨</div>
+        <h3>Valima Reception</h3>
+        <p class="date">Saturday, 17th Oct 2026</p>
+        <p class="venue">Venue: PC Hotel Crystal Ball Room</p>
+        <div class="invite-persons" id="walimaPersons">
+          Invited Persons: <span>0</span>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="logout-btn-container">
+      <button onclick="logout()" class="btn-outline">Logout</button>
+    </div>
+  </main>
+
+  <script type="module">
+    import { init3DBackground } from './js/background3d.js';
+
+    // Initialize Three.js 3D Background
+    init3DBackground();
+
+    // Fetch Guest Data from SessionStorage
+    const rawData = sessionStorage.getItem('guestData');
+    if (!rawData) {
+      window.location.href = "index.html";
+    } else {
+      const guest = JSON.parse(rawData);
+      document.getElementById('guestName').innerText = guest.guestName || "Respected Guest";
+
+      // Render Event Cards dynamically based on permissions & allowed persons
+      renderEvent('mayun', guest.mayun);
+      renderEvent('barat', guest.barat);
+      renderEvent('walima', guest.walima);
+    }
+
+    function renderEvent(eventKey, eventData) {
+      const card = document.getElementById(`${eventKey}Card`);
+      const personsCount = document.querySelector(`#${eventKey}Persons span`);
+
+      if (eventData && eventData.allowed && eventData.persons > 0) {
+        personsCount.innerText = eventData.persons;
+      } else {
+        card.style.display = 'none'; // Hide card if not invited to this specific event
+      }
+    }
+
+    window.logout = function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
