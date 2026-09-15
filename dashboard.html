@@ -3,76 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation</title>
+  <title>The Royal Wedding Invitation</title>
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- Three.js Canvas Container -->
+  <!-- Three.js Canvas -->
   <div id="webgl-bg"></div>
 
   <main class="content-wrapper">
     <header class="header">
+      <p class="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
       <p class="sub-title">Khushamdeed!</p>
-      <h1 id="guestName" class="guest-name">Guest Name</h1>
-      <p>We cordially invite you to join us in celebrating the wedding of</p>
-      <h2 class="couple-names">Groom & Bride</h2>
+      <h1 id="guestName" class="guest-name">Valued Guest</h1>
+      <p class="invite-lead">We cordially invite you to celebrate the joyous union of</p>
+      <h2 class="couple-names">Ahmad <span class="ampersand">&</span> Fatima</h2>
     </header>
 
-    <!-- Events Container -->
+    <!-- Events Grid -->
     <section class="events-grid">
       
       <!-- Mayun Card -->
       <div class="event-card mayun-theme" id="mayunCard">
-        <div class="card-badge">Mayun / Dholki</div>
-        <div class="event-icon">🌼</div>
+        <div class="card-badge">Mayun & Dholki</div>
+        <div class="event-icon"><i class="fa-solid fa-sun"></i></div>
         <h3>Mayun Ceremony</h3>
-        <p class="date">Thursday, 15th Oct 2026</p>
-        <p class="venue">Venue: Royal Palm Marquee</p>
+        <p class="date"><i class="fa-regular fa-calendar-days"></i> Thursday, 15th Oct 2026</p>
+        
+        <div class="time-box">
+          <p><i class="fa-regular fa-clock"></i> <strong>Event Time:</strong> 07:00 PM</p>
+          <p><i class="fa-solid fa-utensils"></i> <strong>Dinner Served:</strong> 09:00 PM</p>
+        </div>
+
+        <p class="venue"><i class="fa-solid fa-location-dot"></i> <strong>Venue:</strong> Royal Palm Marquee, Gulberg, Lahore</p>
+        
+        <a href="https://maps.google.com/?q=Royal+Palm+Marquee+Lahore" target="_blank" class="map-btn">
+          <i class="fa-solid fa-map-location-dot"></i> Open in Google Maps
+        </a>
+
         <div class="invite-persons" id="mayunPersons">
-          Invited Persons: <span>0</span>
+          <i class="fa-solid fa-user-group"></i> Invited Persons: <span>0</span>
         </div>
       </div>
 
       <!-- Barat Card -->
       <div class="event-card barat-theme" id="baratCard">
-        <div class="card-badge">Barat</div>
-        <div class="event-icon">🎺</div>
+        <div class="card-badge">Baraat</div>
+        <div class="event-icon"><i class="fa-solid fa-crown"></i></div>
         <h3>Baraat & Ruksati</h3>
-        <p class="date">Friday, 16th Oct 2026</p>
-        <p class="venue">Venue: Imperial Wedding Hall</p>
+        <p class="date"><i class="fa-regular fa-calendar-days"></i> Friday, 16th Oct 2026</p>
+        
+        <div class="time-box">
+          <p><i class="fa-regular fa-clock"></i> <strong>Arrival of Barat:</strong> 08:00 PM</p>
+          <p><i class="fa-solid fa-utensils"></i> <strong>Dinner Served:</strong> 10:00 PM</p>
+        </div>
+
+        <p class="venue"><i class="fa-solid fa-location-dot"></i> <strong>Venue:</strong> Imperial Wedding Hall, DHA Phase 5, Lahore</p>
+
+        <a href="https://maps.google.com/?q=Imperial+Wedding+Hall+Lahore" target="_blank" class="map-btn">
+          <i class="fa-solid fa-map-location-dot"></i> Open in Google Maps
+        </a>
+
         <div class="invite-persons" id="baratPersons">
-          Invited Persons: <span>0</span>
+          <i class="fa-solid fa-user-group"></i> Invited Persons: <span>0</span>
         </div>
       </div>
 
       <!-- Walima Card -->
       <div class="event-card walima-theme" id="walimaCard">
         <div class="card-badge">Walima</div>
-        <div class="event-icon">✨</div>
+        <div class="event-icon"><i class="fa-solid fa-gem"></i></div>
         <h3>Valima Reception</h3>
-        <p class="date">Saturday, 17th Oct 2026</p>
-        <p class="venue">Venue: PC Hotel Crystal Ball Room</p>
+        <p class="date"><i class="fa-regular fa-calendar-days"></i> Saturday, 17th Oct 2026</p>
+        
+        <div class="time-box">
+          <p><i class="fa-regular fa-clock"></i> <strong>Reception:</strong> 07:30 PM</p>
+          <p><i class="fa-solid fa-utensils"></i> <strong>Dinner Served:</strong> 09:30 PM</p>
+        </div>
+
+        <p class="venue"><i class="fa-solid fa-location-dot"></i> <strong>Venue:</strong> PC Hotel, Crystal Ballroom, Lahore</p>
+
+        <a href="https://maps.google.com/?q=Pearl+Continental+Hotel+Lahore" target="_blank" class="map-btn">
+          <i class="fa-solid fa-map-location-dot"></i> Open in Google Maps
+        </a>
+
         <div class="invite-persons" id="walimaPersons">
-          Invited Persons: <span>0</span>
+          <i class="fa-solid fa-user-group"></i> Invited Persons: <span>0</span>
         </div>
       </div>
 
     </section>
 
-    <div class="logout-btn-container">
-      <button onclick="logout()" class="btn-outline">Logout</button>
-    </div>
+    <footer class="footer">
+      <p>We look forward to welcoming you on our special day!</p>
+    </footer>
   </main>
 
   <script type="module">
     import { init3DBackground } from './js/background3d.js';
 
-    // Initialize Three.js 3D Background
     init3DBackground();
 
-    // Fetch Guest Data from SessionStorage
     const rawData = sessionStorage.getItem('guestData');
     if (!rawData) {
       window.location.href = "index.html";
@@ -80,7 +113,6 @@
       const guest = JSON.parse(rawData);
       document.getElementById('guestName').innerText = guest.guestName || "Respected Guest";
 
-      // Render Event Cards dynamically based on permissions & allowed persons
       renderEvent('mayun', guest.mayun);
       renderEvent('barat', guest.barat);
       renderEvent('walima', guest.walima);
@@ -93,13 +125,8 @@
       if (eventData && eventData.allowed && eventData.persons > 0) {
         personsCount.innerText = eventData.persons;
       } else {
-        card.style.display = 'none'; // Hide card if not invited to this specific event
+        card.style.display = 'none';
       }
-    }
-
-    window.logout = function() {
-      sessionStorage.clear();
-      window.location.href = "index.html";
     }
   </script>
 </body>
