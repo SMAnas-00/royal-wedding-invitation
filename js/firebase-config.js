@@ -3,12 +3,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCykeTm6283vfdwtNYLuALS8bi15V3C_Jw",
+  authDomain: "royal-wedding-cec8d.firebaseapp.com",
+  projectId: "royal-wedding-cec8d",
+  storageBucket: "royal-wedding-cec8d.appspot.com",
+  messagingSenderId: "346759910822",
+  appId: "1:346759910822:web:a2263b4b7a0169d833ab67"
 };
 
 const app = initializeApp(firebaseConfig);
