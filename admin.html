@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Admin - Add Guests</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    .admin-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: rgba(20, 20, 20, 0.85);
+      border: 1px solid #D4AF37;
+      border-radius: 15px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #D4AF37;
+      font-size: 0.95rem;
+    }
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 1rem;
+    }
+    .event-toggle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .event-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 15px;
+    }
+    .event-box label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: 600;
+    }
+    .event-box input[type="number"] {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #555;
+      background: #111;
+      color: #fff;
+    }
+    .status-msg {
+      margin-top: 15px;
+      font-weight: 600;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    <h2 class="gold-text" style="text-align: center; margin-bottom: 25px;">➕ Add New Guest Invitation</h2>
+
+    <form id="addGuestForm">
+      
+      <!-- Passcode / Document ID -->
+      <div class="form-group">
+        <label for="passcode">Invitation Passcode (Document ID):</label>
+        <input type="text" id="passcode" placeholder="e.g. KHAN2026" required style="text-transform: uppercase;">
+      </div>
+
+      <!-- Guest Name -->
+      <div class="form-group">
+        <label for="guestName">Guest / Family Name:</label>
+        <input type="text" id="guestName" placeholder="e.g. Khan Family / Mr. Ali" required>
+      </div>
+
+      <hr style="border-color: rgba(212, 175, 55, 0.2); margin: 25px 0;">
+
+      <!-- Events Selection -->
+      <div class="form-group">
+        <label>Events Access & Allowed Persons:</label>
+        
+        <div class="event-toggle-grid">
+          
+          <!-- Mayun -->
+          <div class="event-box">
+            <label>
+              <input type="checkbox" id="mayunAllowed" checked> Mayun
+            </label>
+            <input type="number" id="mayunPersons" min="1" value="2" placeholder="Persons">
+          </div>
+
+          <!-- Barat -->
+          <div class="event-box">
+            <label>
+              <input type="checkbox" id="baratAllowed" checked> Barat
+            </label>
+            <input type="number" id="baratPersons" min="1" value="2" placeholder="Persons">
+          </div>
+
+          <!-- Walima -->
+          <div class="event-box">
+            <label>
+              <input type="checkbox" id="walimaAllowed" checked> Walima
+            </label>
+            <input type="number" id="walimaPersons" min="1" value="2" placeholder="Persons">
+          </div>
+
+        </div>
+      </div>
+
+      <button type="submit" class="btn-gold" style="margin-top: 15px;">Save Guest to Firebase</button>
+      <div id="statusMsg" class="status-msg"></div>
+
+    </form>
+  </div>
+
+  <script type="module">
+    import { db, doc, setDoc } from './js/firebase-config.js';
+
+    document.getElementById('addGuestForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const statusMsg = document.getElementById('statusMsg');
+      statusMsg.style.color = "#D4AF37";
+      statusMsg.innerText = "Saving guest details...";
+
+      // Inputs Collect Karein
+      const code = document.getElementById('passcode').value.trim().toUpperCase();
+      const guestName = document.getElementById('guestName').value.trim();
+
+      const mayunAllowed = document.getElementById('mayunAllowed').checked;
+      const mayunPersons = parseInt(document.getElementById('mayunPersons').value) || 0;
+
+      const baratAllowed = document.getElementById('baratAllowed').checked;
+      const baratPersons = parseInt(document.getElementById('baratPersons').value) || 0;
+
+      const walimaAllowed = document.getElementById('walimaAllowed').checked;
+      const walimaPersons = parseInt(document.getElementById('walimaPersons').value) || 0;
+
+      // Firestore Payload Structure
+      const guestPayload = {
+        guestName: guestName,
+        mayun: {
+          allowed: mayunAllowed,
+          persons: mayunAllowed ? mayunPersons : 0
+        },
+        barat: {
+          allowed: baratAllowed,
+          persons: baratAllowed ? baratPersons : 0
+        },
+        walima: {
+          allowed: walimaAllowed,
+          persons: walimaAllowed ? walimaPersons : 0
+        }
+      };
+
+      try {
+        // Firebase Firestore me Document Create / Update Karein
+        await setDoc(doc(db, "guests", code), guestPayload);
+        
+        statusMsg.style.color = "#4BB543";
+        statusMsg.innerText = `Success! Guest "${guestName}" added with code: ${code}`;
+        
+        // Form Reset
+        document.getElementById('addGuestForm').reset();
+        document.getElementById('mayunAllowed').checked = true;
+        document.getElementById('baratAllowed').checked = true;
+        document.getElementById('walimaAllowed').checked = true;
+
+      } catch (error) {
+        console.error("Error adding guest:", error);
+        statusMsg.style.color = "#ff4d4d";
+        statusMsg.innerText = "Failed to add guest! Check console or Firestore rules.";
+      }
+    });
+  </script>
+</body>
+</html>
